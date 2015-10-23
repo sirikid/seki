@@ -11,20 +11,29 @@ main(int c, char* v[])
 {
 	char* desu;
 
-	if (c == 1) {
+	switch (c) {
+	case 1:
 		desu = "desu";
-	} else if (c == 2) {
+		break;
+	case 2:
 		if (v[1][0] == '-') {
-			if (v[1][1] == 'v') {
-				printf("desu 0.1.0\n");
-			} else {
+			switch (v[1][1]) {
+			case 'h':
 				usage(v[0]);
+				break;
+			case 'v':
+				printf("desu 0.1.0\n");
+				break;
+			default:
+				printf("Unknown flag -%c, try desu -h\n", v[1][1]);
+				break;
 			}
 			return 0;
 		} else {
 			desu = v[1];
 		}
-	} else {
+		break;
+	default:
 		usage(v[0]);
 		return 1;
 	}
