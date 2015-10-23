@@ -1,8 +1,12 @@
 DESU
----
-Desu desu desu
+===
+Desu desu desu   
 
-*Usage*
+Your own personal Suiseiseki   
+<small>Pure virtual version</small>   
+
+Usage
+---
 ```sh
 desu -h
 desu -v
