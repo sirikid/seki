@@ -1,9 +1,8 @@
 DESU
 ===
-Desu desu desu   
+Desu desu desu
 
-Your own personal Suiseiseki   
-<small>Pure virtual version</small>   
+Your own personal Suiseiseki
 
 Usage
 ---
