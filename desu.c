@@ -1,44 +1,38 @@
+#include <getopt.h>
 #include <stdio.h>
 
 static void
-usage(char* binname)
+usage(const char *binname)
 {
-	printf("Usage: %s -h | -v | [desu]\n", binname);
+	printf("Usage: %s [-h|-v] [desu]\n", binname);
+}
+
+static void
+version(const char *binname)
+{
+	printf("%s 0.1.1\n", binname);
 }
 
 int
-main(int c, char* v[])
+main(const int c, char *const v[])
 {
-	char* desu;
+	int opt;
 
-	switch (c) {
-	case 1:
-		desu = "desu";
-		break;
-	case 2:
-		if (v[1][0] == '-') {
-			switch (v[1][1]) {
-			case 'h':
-				usage(v[0]);
-				break;
-			case 'v':
-				printf("desu 0.1.0\n");
-				break;
-			default:
-				printf("Unknown flag -%c, try desu -h\n", v[1][1]);
-				break;
-			}
+	while ((opt = getopt(c, v, "hv")) != -1) {
+		switch (opt) {
+		case 'h':
+			usage(v[0]);
 			return 0;
-		} else {
-			desu = v[1];
+		case 'v':
+			version(v[0]);
+			return 0;
 		}
-		break;
-	default:
-		usage(v[0]);
-		return 1;
 	}
 
-	while (1) {
-		printf("%s\n", desu);
+	const char *desu = (optind == c ? "desu" : v[optind]);
+
+	for (;;) {
+		fputs(desu, stdout);
+		fputc('\n', stdout);
 	}
 }
