@@ -18,6 +18,7 @@ main(const int c, char *const v[])
 {
 	int opt;
 
+	opterr = 0;
 	while ((opt = getopt(c, v, "hv")) != -1) {
 		switch (opt) {
 		case 'h':
@@ -26,6 +27,9 @@ main(const int c, char *const v[])
 		case 'v':
 			version(v[0]);
 			return 0;
+		case '?':
+			printf("Unknown flag %s\n", v[optind - 1 ]);
+			return 1;
 		}
 	}
 
