@@ -28,7 +28,7 @@ main(const int c, char *const v[])
 			version(v[0]);
 			return 0;
 		case '?':
-			printf("Unknown flag %s\n", v[optind - 1 ]);
+			printf("Unknown flag %s\n", v[optind - 1]);
 			return 1;
 		}
 	}
