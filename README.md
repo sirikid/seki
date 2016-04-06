@@ -1,4 +1,4 @@
-DESU
+SEKI
 ===
 Desu desu desu
 
@@ -7,7 +7,7 @@ Your own personal Suiseiseki
 Usage
 ---
 ```sh
-desu -h
-desu -v
-desu [desu]
+seki -h
+seki -v
+seki [desu]
 ```

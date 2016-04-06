@@ -8,23 +8,26 @@ BINPREFIX = $(PREFIX)/bin
 
 SRC = $(wildcard *.c)
 OBJ = $(SRC:.c=.o)
+BIN = seki
+
+all: $(BIN)
 
 .c.o:
 	@echo " CC $<"
 	@$(CC) -c -o $@ $<
 
-desu: $(OBJ)
+$(BIN): $(OBJ)
 	@echo " LD $@"
 	@$(CC) -o $@ $(OBJ) $(LDFLAGS)
 
 install:
 	@mkdir -p "$(DESTDIR)$(BINPREFIX)"
-	@cp -p desu "$(DESTDIR)$(BINPREFIX)"
+	@cp -p $(BIN) "$(DESTDIR)$(BINPREFIX)"
 
 uninstall:
-	@rm -f "$(DESTDIR)$(BINPREFIX)/desu"
+	@rm -f "$(DESTDIR)$(BINPREFIX)/$(BIN)"
 
 clean:
-	@rm -f $(OBJ) desu
+	@rm -f $(OBJ) $(BIN)
 
 .PHONY: all clean install uninstall
