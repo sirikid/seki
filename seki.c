@@ -1,9 +1,6 @@
 #include <getopt.h>
 #include <stdio.h>
 
-static char const NAME[] = "seki";
-static char const VERSION[] = "0.1.3";
-
 int main(int const c, char *const v[]) {
 	int opt;
 
@@ -11,16 +8,15 @@ int main(int const c, char *const v[]) {
 	while ((opt = getopt(c, v, "hv")) != -1) {
 		switch (opt) {
 		case 'h':
-			printf("Usage: %1$s -h\n"
-			       "       %1$s -v\n"
-			       "       %1$s [desu]\n",
-			       NAME);
+			puts("Usage: " NAME " -h\n"
+			     "       " NAME " -v\n"
+			     "       " NAME " [desu]");
 			return 0;
 		case 'v':
-			printf("%s v%s\n", NAME, VERSION);
+			puts(NAME " v" VERSION);
 			return 0;
 		case '?':
-			printf("Unknown flag %s\n", v[optind - 1]);
+			printf("Unknown flag %s (-h for help)\n", v[optind - 1]);
 			return 1;
 		}
 	}

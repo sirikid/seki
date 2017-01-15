@@ -1,33 +1,39 @@
-VERSION = 0.1.3
+PROJECT   = seki
+VERSION   = 0.1.4
 
-CC     ?= gcc
-CFLAGS += -std=c99 -pedantic -Wall -Wextra
+STANDARD  = -std=c99
+WARNINGS  = -pedantic -Wall -Wextra
+DEFINES   = -DNAME="\"$(PROJECT)\"" -DVERSION="\"$(VERSION)\""
 
-PREFIX   ?= /usr/local
-BINPREFIX = $(PREFIX)/bin
+CFLAGS    = $(STANDARD) $(WARNINGS) $(DEFINES)
 
-SRC = $(wildcard *.c)
-OBJ = $(SRC:.c=.o)
-BIN = seki
+PREFIX    ?= /usr/local
+BINPREFIX ?= $(PREFIX)/bin
+MANPREFIX ?= $(PREFIX)/share/man
 
-all: $(BIN)
+SOURCES   = $(wildcard *.c)
+OBJECTS   = $(SOURCES:.c=.o)
+EXE       = $(PROJECT)
+MAN       = $(PROJECT).1
+
+all: $(EXE)
+
+$(EXE): $(OBJECTS)
+	@echo " LD $@"
+	@$(CC) $(LDFLAGS) $(OBJECTS) $(LDLIBS) -o $@
 
 .c.o:
 	@echo " CC $<"
-	@$(CC) -c -o $@ $<
-
-$(BIN): $(OBJ)
-	@echo " LD $@"
-	@$(CC) -o $@ $(OBJ) $(LDFLAGS)
+	@$(CC) $(CFLAGS) -c -o $@ $<
 
 install:
-	@mkdir -p "$(DESTDIR)$(BINPREFIX)"
-	@cp -p $(BIN) "$(DESTDIR)$(BINPREFIX)"
+	@install -D -m 755 -t "$(DESTDIR)$(BINPREFIX)" $(EXE)
+	@install -D -m 644 -t "$(DESTDIR)$(MANPREFIX)/man1" $(MAN)
 
 uninstall:
-	@rm -f "$(DESTDIR)$(BINPREFIX)/$(BIN)"
+	@$(RM) "$(DESTDIR)$(BINPREFIX)/$(EXE)"
 
 clean:
-	@rm -f $(OBJ) $(BIN)
+	@$(RM) $(EXE) $(OBJECTS)
 
 .PHONY: all clean install uninstall
