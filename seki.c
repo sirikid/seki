@@ -1,5 +1,14 @@
 #include <getopt.h>
 #include <stdio.h>
+#include <stdlib.h>
+
+#ifndef NAME
+#	error NAME undefined!
+#endif
+
+#ifndef VERSION
+#	error VERSION undefined!
+#endif
 
 int main(int const c, char *const v[]) {
 	int opt;
@@ -10,14 +19,14 @@ int main(int const c, char *const v[]) {
 		case 'h':
 			puts("Usage: " NAME " -h\n"
 			     "       " NAME " -v\n"
-			     "       " NAME " [desu]");
-			return 0;
+			     "       " NAME " [--] [desu]");
+			return EXIT_SUCCESS;
 		case 'v':
 			puts(NAME " v" VERSION);
-			return 0;
+			return EXIT_SUCCESS;
 		case '?':
 			printf("Unknown flag %s (-h for help)\n", v[optind - 1]);
-			return 1;
+			return EXIT_FAILURE;
 		}
 	}
 
