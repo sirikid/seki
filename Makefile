@@ -33,6 +33,7 @@ install: $(EXE)
 
 uninstall:
 	@$(RM) "$(DESTDIR)$(BINPREFIX)/$(EXE)"
+	@$(RM) "$(DESTDIR)$(MANPREFIX)/man1/$(MAN)"
 
 clean:
 	@$(RM) $(EXE) $(OBJECTS)
