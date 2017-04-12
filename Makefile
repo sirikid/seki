@@ -1,41 +1,48 @@
 PROJECT = seki
 VERSION = 0.1.4
 
+SRC_DIR = sources
+OBJ_DIR = objects
+
 STANDARD = -std=c99
 WARNINGS = -pedantic -Wall -Wextra
 DEFINES  = -DNAME="\"$(PROJECT)\"" -DVERSION="\"$(VERSION)\""
-
-CFLAGS = $(STANDARD) $(WARNINGS) $(DEFINES)
+CFLAGS   = $(STANDARD) $(WARNINGS) $(DEFINES)
 
 PREFIX    ?= /usr/local
-BINPREFIX ?= $(PREFIX)/bin
-MANPREFIX ?= $(PREFIX)/share/man
+BINPREFIX  = $(PREFIX)/bin
+MANPREFIX  = $(PREFIX)/share/man
 
-SOURCES = $(wildcard *.c)
-OBJECTS = $(SOURCES:.c=.o)
+SOURCES = $(wildcard $(SRC_DIR)/*.c)
+OBJECTS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SOURCES))
 
-EXE = $(PROJECT)
-MAN = $(PROJECT).1
+.PHONY: all prepare build clean docs install uninstall
 
-all: $(EXE)
+all: build # docs
 
-$(EXE): $(OBJECTS)
+prepare:
+	@mkdir -p $(OBJ_DIR)
+
+build: $(PROJECT)
+
+$(PROJECT): $(OBJECTS)
 	@echo " LD $@"
-	@$(CC) $(LDFLAGS) $(OBJECTS) $(LDLIBS) -o $@
+	@$(CC) $(LDFLAGS) $(LDLIBS) -o $@ $(OBJECTS)
 
-.c.o:
-	@echo " CC $<"
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c prepare
+	@echo " CC $@"
 	@$(CC) $(CFLAGS) -c -o $@ $<
 
-install: $(EXE)
+install: all
 	@install -D -m 755 -t "$(DESTDIR)$(BINPREFIX)" $(EXE)
-	@install -D -m 644 -t "$(DESTDIR)$(MANPREFIX)/man1" $(MAN)
 
 uninstall:
 	@$(RM) "$(DESTDIR)$(BINPREFIX)/$(EXE)"
-	@$(RM) "$(DESTDIR)$(MANPREFIX)/man1/$(MAN)"
 
 clean:
-	@$(RM) $(EXE) $(OBJECTS)
+	@$(RM) $(PROJECT)
+	@$(RM) -r $(OBJ_DIR)
 
-.PHONY: all clean install uninstall
+# TODO: Implement
+docs:
+	@false
