@@ -1,4 +1,4 @@
-AC_INIT([Seki], [0.1.4], [], [seki], [])
+AC_INIT([Seki], [0.1.5], [], [seki], [])
 
 AM_INIT_AUTOMAKE([foreign -Wall -Wno-portability])
 
