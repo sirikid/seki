@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#ifndef NAME
-#	error NAME undefined!
+#ifndef PACKAGE
+#	error PACKAGE undefined!
 #endif
 
 #ifndef VERSION
@@ -17,12 +17,12 @@ int main(int const c, char *const v[]) {
 	while ((opt = getopt(c, v, "hv")) != -1) {
 		switch (opt) {
 		case 'h':
-			puts("Usage: " NAME " -h\n"
-			     "       " NAME " -v\n"
-			     "       " NAME " [--] [desu]");
+			puts("Usage: " PACKAGE " -h\n"
+			     "       " PACKAGE " -v\n"
+			     "       " PACKAGE " [--] [desu]");
 			return EXIT_SUCCESS;
 		case 'v':
-			puts(NAME " v" VERSION);
+			puts(PACKAGE " v" VERSION);
 			return EXIT_SUCCESS;
 		case '?':
 			printf("Unknown flag %s (-h for help)\n", v[optind - 1]);

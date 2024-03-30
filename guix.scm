@@ -1,4 +1,6 @@
 (define-module (sklv packages seki)
+  #:use-module (gnu packages autotools)
+  #:use-module (gnu packages pkg-config)
   #:use-module (guix build-system gnu)
   #:use-module (guix gexp)
   #:use-module (guix git-download)
@@ -23,12 +25,9 @@
          (file-name (git-file-name name version))))
       (build-system gnu-build-system)
       (arguments
-       (list
-        #:tests? #f
-        #:make-flags #~(list "CC=gcc" (string-append "PREFIX=" #$output))
-        #:phases
-        #~(modify-phases %standard-phases
-            (delete 'configure))))
+       (list #:tests? #f))
+      (native-inputs
+       (list autoconf automake pkg-config))
       (home-page "https://github.com/sirikid/seki")
       (synopsis "Example of using Make")
       (description #f)
