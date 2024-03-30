@@ -8,11 +8,11 @@
   #:use-module (guix packages))
 
 (define-public seki
-  (let ((revision "1")
-        (commit "abc93488deccfb21c9995b8de9a81abad9e139c8"))
+  (let ((revision "2")
+        (commit "f594dd96d0359be67b640c14705f593247afb0f4"))
     (package
       (name "seki")
-      (version (git-version "0.1.4" revision commit))
+      (version (git-version "0.1.5" revision commit))
       (source
        (origin
          (method git-fetch)
