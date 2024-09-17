@@ -1,10 +1,10 @@
-(load "./guix/sklv/packages/seki.scm")
+(load "./guix/github.com/sirikid/seki/packages.scm")
 
 (use-modules
+ (github.com/sirikid/seki packages)
  (guix gexp)
  (guix git-download)
- (guix packages)
- (sklv packages seki))
+ (guix packages))
 
 (package
   (inherit seki)
