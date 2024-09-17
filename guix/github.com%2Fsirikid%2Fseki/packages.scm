@@ -1,4 +1,4 @@
-(define-module (github.com/sirikid/seki packages)
+(define-module (github.com%2Fsirikid%2Fseki packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages pkg-config)
   #:use-module (guix build-system gnu)

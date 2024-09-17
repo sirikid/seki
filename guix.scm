@@ -1,7 +1,7 @@
-(load "./guix/github.com/sirikid/seki/packages.scm")
+(load "./guix/github.com%2Fsirikid%2Fseki/packages.scm")
 
 (use-modules
- (github.com/sirikid/seki packages)
+ (github.com%2Fsirikid%2Fseki packages)
  (guix gexp)
  (guix git-download)
  (guix packages))
